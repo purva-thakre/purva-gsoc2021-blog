@@ -4,15 +4,10 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+I am a PhD student in applied physics at Southern Illinois University in
+Carbondale, IL. You can contact me at <purva dot thakre at siu dot edu>.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+I mostly blog about various topics related to my research - quantum information,
+quantum computing, group theory, quantum open source projects.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+This blog's public repository is available here : <https://github.com/purva-thakre/purva-blog>. Discussions related to errors, typos and/or suggestions are welcome. 
