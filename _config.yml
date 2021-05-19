@@ -19,9 +19,11 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Purva's Blog
-email: purva.thakre@siu.edu
+author:
+  name: Purva Thakre
+  email: purva.thakre@siu.edu
 description: >- # this means to ignore newlines until "baseurl:"
-  This is my personal research blog.
+  Personal research blog of Purva Thakre.
 #baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
