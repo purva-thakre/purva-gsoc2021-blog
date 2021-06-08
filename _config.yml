@@ -54,3 +54,7 @@ kramdown:
 #   - vendor/gems/
 #   - vendor/ruby/
 permalink: /:categories/:title/
+
+header_pages:
+  - about.md
+  - categories.html
