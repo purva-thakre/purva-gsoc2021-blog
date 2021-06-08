@@ -17,4 +17,6 @@ the decomposition sequence increases as well. The elementary gates or so called 
 
 If time permits, additional module could be introduced to [optimize the decomposition schemes](https://arxiv.org/abs/1210.0974). Any gate decomposition scheme is useful for fault tolerant quantum computing particularly Steane code where quantum gates are decomposed as a combination of Clifford gates and T-gates. The linked optimization scheme strives to decrease the number of non-fault tolerant T-gates upto a certain depth. As decomposition functions are introduced in `qip`, there will be a need to search for optimization schemes based on the chosen universal gate sets.
 
-The link to my project proposal is [here](https://summerofcode.withgoogle.com/projects/#5011452244525056). Looking back at the proposal, I could have done a better job of defining how a quantum gate can be decomposed into smaller gates.  
+The link to my project proposal is [here](https://summerofcode.withgoogle.com/projects/#5011452244525056). Looking back at the proposal, I could have done a better job of defining how a quantum gate can be decomposed into smaller gates.
+
+**Note :** For now, there's no way to start a discussion under a blogpost. While I figure out a way to change the default layout of a post, comments/suggestions are welcome [in the repository](https://github.com/purva-thakre/purva-blog/discussions) of this blog.  
