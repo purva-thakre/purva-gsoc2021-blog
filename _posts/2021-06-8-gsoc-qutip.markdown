@@ -2,6 +2,6 @@
 layout: post
 title:  "GSoC 2021 QuTiP"
 date:   2021-06-8 11:38:29 -0500
-categories: GSoC
+categories: [GSoC]
 ---
-I will be contributing to QuTiP as a part of GsoC 2021.
+I will be contributing to QuTiP as a part of GSoC 2021.
