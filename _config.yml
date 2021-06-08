@@ -53,3 +53,4 @@ kramdown:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+permalink: /:categories/:title/
