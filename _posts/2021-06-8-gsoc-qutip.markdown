@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "GSoC 2021 : Gate Decomposition for QuTiP"
+title:  "GSoC 2021 : Gate Decomposition in QuTiP"
 date:   2021-06-8 11:38:29 -0500
 categories: GSoC QuTiP
 ---
