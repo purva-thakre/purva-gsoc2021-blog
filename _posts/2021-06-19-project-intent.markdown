@@ -68,13 +68,14 @@ To verify the decomposition is equivalent to the input quantum gate except for s
 
 We think this is due to the global phase equation being expressed as $$ \theta = arctan(-y/x) $$ whereas numpy's function calculating the values as $$ \theta = arctan(y/x) $$. The special boundary conditions need to be changed due to the quadrants for $$ arctan(-y/x) $$ being different than those for $$ arctan(y/x) $$ as shown below. Quadrants for $$ arctan(y/x) $$ were taken from [here.](http://scipp.ucsc.edu/~haber/ph116A/arg_11.pdf)
 
-![quadrant](/assets/_img/arctanyx_quadrants.png)
+<div style="text-align: center"><img src="/assets/_img/arctanyx_quadrants.png"></div>
+
 
 As new decomposition functions are introduced, it provides a way to compare the performance of the QuTiP functions to those already defined in other packages[^4].  
 
 ### Single Qubit Example
 
-![quadrant](/assets/_img/hadamard.png)
+<div style="text-align: center"><img src="/assets/_img/hadamard.png"></div>
 
 Let's consider decomposing a Hadamard gate ($$ \mathcal{H} $$) into a decomposition described by either single qubit rotation gates { $$ R_y(\theta), R_z(\theta) $$} or a combination of single qubit rotation gates { $$ R_y(\theta), R_z(\theta) $$}  and Pauli X gate ($$ \sigma_x $$). The former is called $$ZYZ$$ decomposition whereas the latter is known as $$ABC$$ decomposition.
 
@@ -114,6 +115,11 @@ Expected circuit diagram output for above:
   ![abc_single](/assets/_img/abc_single.png)
 
 
+Both decompositions are equivalent to $$ \mathcal{H} upto some global phase factor $\delta$ as
+
+\begin{equation}
+U \left| \psi \right> \left< \psi \right| U^\dagger = e^{i \delta} U \left| \psi \right>  \left< \psi \right| U^\dagger e^{-i \delta}
+\end{equation}
 
 **Note :** For now, there's no way to start a discussion under a blogpost. While I figure out a way to change the default layout of a post, comments/suggestions are welcome [in the repository](https://github.com/purva-thakre/purva-blog/discussions) of this blog.  
 
