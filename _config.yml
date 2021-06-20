@@ -54,3 +54,5 @@ kramdown:
 #   - vendor/gems/
 #   - vendor/ruby/
 permalink: /:categories/:title/
+include:
+  - "_img"
