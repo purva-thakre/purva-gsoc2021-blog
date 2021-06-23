@@ -92,7 +92,7 @@ U  = e^{i \delta} U
 
 As of right now, we do not have a well formed plan of ignoring the global phase. This is mostly due to a function defined to do so has failed to extract the expected global phase via [$$\arctan$$](https://numpy.org/doc/stable/reference/generated/numpy.arctan.html) despite introducing special conditions for boundary values etc.
 
-We think this is due to the global phase equation being expressed as $$ \theta = \arctan(-y, x) $$ whereas numpy's function calculating the values as $$ \theta = \arctan(y, x) $$. The special boundary conditions need to be changed due to the quadrants for $$ \arctan(-y, x) $$ being different than those for $$ \arctan(y, x) $$ as shown below. Quadrants for $$ \arctan(y, x) $$ were taken from [here.](http://scipp.ucsc.edu/~haber/ph116A/arg_11.pdf)
+We think this is due to the global phase equation being expressed as $$ \theta = \arctan(-y, \, x) $$ whereas numpy's function calculating the values as $$ \theta = \arctan(y, \, x) $$. The special boundary conditions need to be changed due to the quadrants for $$ \arctan(-y, \, x) $$ being different than those for $$ \arctan(y, \, x) $$ as shown below. Quadrants for $$ \arctan(y, \, x) $$ were taken from [here.](http://scipp.ucsc.edu/~haber/ph116A/arg_11.pdf)
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/arctanyx_quadrants.png"></div>
 
@@ -103,7 +103,7 @@ As new decomposition functions are introduced, it provides a way to compare the 
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/hadamard.png" width="35%" height="35%"></div>
 
-Let's consider decomposing a Hadamard gate ($$ \textrm{H} $$) into a decomposition described by either single qubit rotation gates { $$ \textrm{R}_y(\theta), \textrm{R}_z(\theta) $$} or a combination of single qubit rotation gates { $$ \textrm{R}_y(\theta), \textrm{R}_z(\theta) $$}  and Pauli $$ \textrm{X}$$ gate ($$ \sigma_x $$). The former is called $$\textrm{ZYZ}$$ decomposition whereas the latter is known as $$\textrm{ABC}$$ decomposition.
+Let's consider decomposing a Hadamard gate ($$ \textrm{H} $$) into a decomposition described by either single qubit rotation gates { $$ \textrm{R}_y(\theta), \, \textrm{R}_z(\theta) $$} or a combination of single qubit rotation gates { $$ \textrm{R}_y(\theta), \, \textrm{R}_z(\theta) $$}  and Pauli $$ \textrm{X}$$ gate ($$ \sigma_x $$). The former is called $$\textrm{ZYZ}$$ decomposition whereas the latter is known as $$\textrm{ABC}$$ decomposition.
 
 Detailed calculations for each are available in [another post.](https://purva-thakre.github.io/purva-blog/gsoc/qutip/single-qubit-example/)
 
