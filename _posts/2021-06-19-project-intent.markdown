@@ -133,7 +133,8 @@ Expected circuit diagram output for above:
 
   Input $$ \textrm{H} $$ is supposed to be decomposed as $$ \textrm{R}_z(\alpha) \textrm{R}_y(\theta) \textrm{R}_z(\beta)$$
 
-  ![zyz_single]({{ site.baseurl }}/assets/img/zyz_single_qubit.png)
+  <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/zyz_single_qubit.png" width="70%" height="70%"></div>
+
 
 **ABC_decomposition**
 
