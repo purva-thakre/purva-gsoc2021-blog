@@ -19,7 +19,7 @@ and the set of rotation matrices formed via the matrices in the Pauli set { $$ \
 
 There exist known decomposition schemes to decompose an arbitrary $$ U $$ into a product of rotation matrices $$ \textrm{R}_y(\theta)$$ and $$ \textrm{R}_y(\theta)$$ or into a product of Pauli $$ \textrm{X} $$ and rotation matrices $$ \textrm{R}_y(\theta)$$ and $$ \textrm{R}_z(\theta)$$.
 
-**$$\textrm{ZYZ}$$ Decomposition**
+**$$\textrm{\textbf{ZYZ}}$$ Decomposition**
 
 Suppose we want $$ U = \textrm{R}_z(\alpha) \textrm{R}_y(\theta) \textrm{R}_z(\beta)$$[^1].
 
@@ -46,17 +46,17 @@ In the end, an arbitrary single qubit $$ U $$ can be implemented in a quantum ci
 
 ![zyz_circuit]({{ site.baseurl }}/assets/img/zyz_circuit.png)
 
-**$$\textrm{ABC}$$ Decomposition**
+**$$\textrm{\textbf{ABC}}$$ Decomposition**
 
 Suppose we want $$ U = \textrm{A} \sigma_x \textrm{B} \sigma_x \textrm{C}$$ where $$ \textrm{ABC} = \textrm{I}$$.
 
-If $$ \textrm{ZYZ} $$ decomposition has already been calculated then there's an easier workaround to describing $$ \textrm{A}, \textrm{B}$$ and $$\textrm{C}$$ in terms of $$ \textrm{R}_z$$ and $$\textrm{R}_y$$ rotation matrices[^2].
+If $$ \textrm{ZYZ} $$ decomposition has already been calculated then there's an easier workaround to describing $$ \textrm{A}, \, \textrm{B}$$ and $$\textrm{C}$$ in terms of $$ \textrm{R}_z$$ and $$\textrm{R}_y$$ rotation matrices[^2].
 
 ![abc_general]({{ site.baseurl }}/assets/img/abc_general.png)
 
 $$ U = \textrm{R}_z(\alpha) \textrm{R}_y \left(\frac{\theta}{2} \right) \sigma_x \textrm{R}_y \left(\frac{-\theta}{2} \right) \textrm{R}_z \left(\frac{-(\alpha+\beta)}{2} \right) \sigma_x \textrm{R}_z \left(\frac{-\alpha+\beta}{2} \right) = \textrm{A} \sigma_x \textrm{B} \sigma_x \textrm{C}$$
 
-Here, $$\alpha, \theta$$ and $$ \beta $$ were calculated from $$ \textrm{ZYZ} $$ decomposition.
+Here, $$\alpha, \, \theta$$ and $$ \beta $$ were calculated from $$ \textrm{ZYZ} $$ decomposition.
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/ABC_angle.png" width="40%" height="40%"></div>
 
