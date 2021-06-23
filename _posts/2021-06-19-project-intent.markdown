@@ -8,34 +8,36 @@ categories: GSoC QuTiP
 ## General Scenario
 
 Assume some error in a quantum system has changed the initial state $$ \rho $$
-to $$ \rho' $$. As long this evolution can be expressed in terms of an operator-sum representation (OSR), operators $$ \{ E_i\} $$ can be used to revert the system's state back to the original state $$ \rho $$ [^1].  
+to $$ \rho' $$. As long as this evolution can be expressed in terms of an operator-sum representation (OSR), operators $$ \{ E_i\} $$ can be used to revert the system's state back to the original state $$ \rho $$ [^1].  
 
 \begin{equation}
 \mathcal{E} (\rho') = \sum_{i} E_i \rho {E_i}^\dagger
 \end{equation}
 
-One of the main goals of OSR is to find the operators $$ \{ E_i\} $$ that will act on a $$ n- $$ qubit system i.e. each  $$ E_i $$ is going to also be a $$ n \times n $$ unitary. At the end of this process, we want to implement error correction operator $$ E_i $$ in a quantum circuit with $$ \rho' $$ as the input and $$ \rho $$ as the output.
+One of the main goals of OSR is to find the operators $$ \{ E_i\} $$ that will act on a $$ n$$-qubit system i.e. each  $$ E_i $$ is going to also be a $$ n \times n $$ unitary. At the end of this process, we want to implement error correction operator $$ E_i $$ in a quantum circuit with $$ \rho' $$ as the input and $$ \rho $$ as the output.
+
+<div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/error_correction.png" width="65%" height="65%"></div>
 
 
-![error correction]({{ site.baseurl }}/assets/img/error_correction.png)
+It is not possible to directly implement above error correcting quantum circuit [on a quantum device  due to the inability to create a circuit with an arbitrary $$ n \times n $$ matrix](https://quantumcomputing.stackexchange.com/questions/4975/how-do-i-build-a-gate-from-a-matrix-on-qiskit) if the matrix does not describe a known gate. Each of the $$ n \times n $$ matrix in $$ \{ E_i\} $$ has to be described in terms of known quantum gates (or rather in terms of universal quantum gates[^2]).
 
-There's an issue implementing a quantum circuit [on a quantum device  due to the inability to create a circuit with an arbitrary $$ n \times n $$ matrix](https://quantumcomputing.stackexchange.com/questions/4975/how-do-i-build-a-gate-from-a-matrix-on-qiskit) if the matrix does not describe a known gate. Each of the $$ n \times n $$ matrix in $$ \{ E_i\} $$ has to be described in terms of known quantum gates (or rather by using universal quantum gates[^2]).
-
-Different decomposition schemes exist to describe a gate in terms of smaller gates. These schemes differ in terms of the size of the qubit gates to be decomposed, the number of gates needed for the decomposition, the type of gates needed for the decomposition, optimized schemes for each scheme  etc.
+Different decomposition schemes exist to describe a gate in terms of smaller gates. These schemes differ in terms of the size of the qubit gates to be decomposed, the number of gates needed for the decomposition, the type of gates needed for the decomposition, optimization procedures for each scheme  etc.
 
 ### In QuTiP
 
-The decomposition schemes are going to be added as a part of the [`qutip-qip`](https://github.com/qutip/qutip-qip) package. We describe a tentative design for a general decomposition function below.
+The decomposition schemes will be added as a part of the [`qutip-qip`](https://github.com/qutip/qutip-qip) package. We describe a tentative design for a general decomposition function below.
 
 
 **Steps taken to implement some decomposition scheme :**
 
-A decomposition function will need a $$n-$$ qubit unitary gate as input. The decomposition function will also need an option to either provide an optimized decomposition or output the decomposition in terms of a particular set of gates.
-    - An optimized decomposition scheme could either try to decrease the total number of gates in the decomposition or decrease gates that are expensive to implement (like $$CNOT$$ or $$T$$ gates)[^3].
-    - If no option is chosen then the default option to decompose the gate will be to choose a scheme using the least number of gates.
+A decomposition function will need a $$n$$-qubit unitary gate as input. The decomposition function will also need an option to either provide an optimized decomposition or output the decomposition in terms of a particular set of gates.
+
+- An optimized decomposition scheme could either try to decrease the total number of gates in the decomposition or reduce gates that are expensive to implement (like $$\textrm{CNOT}$$ or $$\textrm{T}$$ gates)[^3].
+
+- If no option is chosen then the default option to decompose the gate will be to choose a scheme using the least number of gates.
 
 ```python
-def n_qubit_decomposition(Qobj,'optmization_scheme','decomposition_scheme'):
+def n_qubit_decomposition(Qobj, 'optmization_scheme', 'decomposition_scheme'):
 
   if 'optmization_scheme' in list_of_optimization_schemes:
     return(optmization_scheme(Qobj))
@@ -50,24 +52,47 @@ def n_qubit_decomposition(Qobj,'optmization_scheme','decomposition_scheme'):
     for 'decomposition_scheme' in list_of_decomposition_schemes:
       number_of_gates_needed_for_decomposition = decomposition_scheme(Qobj)
       decomposition_name.append('decomposition_scheme')
-      length_of_outputs.append(  number_of_gates_needed_for_decomposition)
+      length_of_outputs.append(number_of_gates_needed_for_decomposition)
 
-    all_decomposition_outputs = dict(zip(decomposition_name,length_of_outputs))
+    all_decomposition_outputs = dict(zip(decomposition_name, length_of_outputs))
 
     for min_value in all_decomposition_outputs:
       return(decomposition_scheme(Qobj))
 
 ```
 
-The output from the decomposition function will be provided in the form of a list. This list could be used to create a circuit diagram.
-    - In order to create a circuit diagram, a function will need to be defined to figure out the number of qubits in the circuit based on the input array size.
-    - Then, to be able to create an object of the [`Gate`](https://qutip-qip.readthedocs.io/en/latest/_apidoc/qutip_qip.operations.html) class, subclasses of the `Gate` class will need to be introduced.
-      For example, if a single qubit gate is decomposed in terms of rotation gates { $$ R_y(\theta), R_z(\theta) $$} then their respective arrays have to be recognized as particular types via `isinstance(some_array,SingleQubitRotation)`.
+The output from the decomposition function will be provided in the form of a list of objects of `Gate` class. This list could be used to create a circuit diagram with the number of qubits in the circuit determined from the shape of the input gate.
 
-To verify the decomposition is equivalent to the input quantum gate except for some global phase factor, a separate module will be introduced.As of right now, we do not have a well formed plan of ignoring the global phase. This is mostly due to a function defined to do so has failed to extract the expected global phase via [arctan](https://numpy.org/doc/stable/reference/generated/numpy.arctan.html) despite introducing special conditions for boundary values etc.
+```python
 
+def find_number_of_qubits(Qobj):
+  """ If the input is has n rows and columns, verifies the input is a unitary
+  that will act on a qubit state and not a qudit state.
+  """
+  return(int(num_of_qubits))
 
-We think this is due to the global phase equation being expressed as $$ \theta = arctan(-y/x) $$ whereas numpy's function calculating the values as $$ \theta = arctan(y/x) $$. The special boundary conditions need to be changed due to the quadrants for $$ arctan(-y/x) $$ being different than those for $$ arctan(y/x) $$ as shown below. Quadrants for $$ arctan(y/x) $$ were taken from [here.](http://scipp.ucsc.edu/~haber/ph116A/arg_11.pdf)
+def circuit_diagram(num_of_qubits, list_of_gates_from_decomposition_function):
+  """ Returns the decomposition in the form of a circuit diagram.
+  """
+  # initialize n qubit circuit
+  output_circuit = QubitCircuit(num_of_qubits, reverse_states=False)
+
+  # append gates to the circuit
+  for i in list_of_gates_from_decomposition_function:
+    output_circuit.add_gate(i)
+
+  return(output_circuit.png)
+```
+
+To verify the decomposition is equivalent to the input quantum gate except for some global phase factor, a separate module will be introduced.
+
+\begin{equation}
+U  = e^{i \delta} U
+\end{equation}
+
+As of right now, we do not have a well formed plan of ignoring the global phase. This is mostly due to a function defined to do so has failed to extract the expected global phase via [$$\arctan$$](https://numpy.org/doc/stable/reference/generated/numpy.arctan.html) despite introducing special conditions for boundary values etc.
+
+We think this is due to the global phase equation being expressed as $$ \theta = \arctan(-y, x) $$ whereas numpy's function calculating the values as $$ \theta = \arctan(y, x) $$. The special boundary conditions need to be changed due to the quadrants for $$ \arctan(-y, x) $$ being different than those for $$ \arctan(y, x) $$ as shown below. Quadrants for $$ \arctan(y, x) $$ were taken from [here.](http://scipp.ucsc.edu/~haber/ph116A/arg_11.pdf)
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/arctanyx_quadrants.png"></div>
 
@@ -76,18 +101,21 @@ As new decomposition functions are introduced, it provides a way to compare the 
 
 ### Single Qubit Example
 
-<div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/hadamard.png"></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/hadamard.png" width="35%" height="35%"></div>
 
-Let's consider decomposing a Hadamard gate ($$ \mathcal{H} $$) into a decomposition described by either single qubit rotation gates { $$ R_y(\theta), R_z(\theta) $$} or a combination of single qubit rotation gates { $$ R_y(\theta), R_z(\theta) $$}  and Pauli X gate ($$ \sigma_x $$). The former is called $$ZYZ$$ decomposition whereas the latter is known as $$ABC$$ decomposition.
+Let's consider decomposing a Hadamard gate ($$ \textrm{H} $$) into a decomposition described by either single qubit rotation gates { $$ \textrm{R}_y(\theta), \textrm{R}_z(\theta) $$} or a combination of single qubit rotation gates { $$ \textrm{R}_y(\theta), \textrm{R}_z(\theta) $$}  and Pauli $$ \textrm{X}$$ gate ($$ \sigma_x $$). The former is called $$\textrm{ZYZ}$$ decomposition whereas the latter is known as $$\textrm{ABC}$$ decomposition.
 
-Detailed calculations for each are available in [another post]({% post_url 2021-06-19-single-qubit-example %}).
+Detailed calculations for each are available in [another post.](https://purva-thakre.github.io/purva-blog/gsoc/qutip/single-qubit-example/)
 
-  - If it's desired to decompose $$ \mathcal{H} $$ by the least number of gates then $$ZYZ$$ decomposition is used.
-  - If it's desired to decompose $$ \mathcal{H} $$ in Pauli X gates in addition to those in $$ZYZ$$ decomposition then $$ABC$$ decomposition is used.
+If it's desired to decompose $$ \textrm{H} $$ into
+
+  - the least number of gates then $$\textrm{ZYZ}$$ decomposition is used.
+
+  - Pauli $$\textrm{X}$$ and gates in $$\textrm{ZYZ}$$ decomposition then $$\textrm{ABC}$$ decomposition is used.
 
 ```python
 
-H_gate = Qobj([[1/np.sqrt(2),1/np.sqrt(2)],[1/np.sqrt(2),-1/np.sqrt(2)]])
+H_gate = Qobj([[1/np.sqrt(2), 1/np.sqrt(2)], [1/np.sqrt(2), -1/np.sqrt(2)]])
 
 def single_qubit_decomposition(H_gate, 'lowest_gate_number', 'ABC_decomposition'):
 
@@ -103,20 +131,20 @@ Expected circuit diagram output for above:
 
 **ZYZ_decomposition**
 
-  Input $$ \mathcal{H} $$ is supposed to be decomposed as $$ R_z(\alpha) R_y(\theta) R_z(\beta)$$
+  Input $$ \textrm{H} $$ is supposed to be decomposed as $$ \textrm{R}_z(\alpha) \textrm{R}_y(\theta) \textrm{R}_z(\beta)$$
 
   ![zyz_single]({{ site.baseurl }}/assets/img/zyz_single_qubit.png)
 
 **ABC_decomposition**
 
-  Input $$ \mathcal{H} $$ is supposed to be decomposed as
+  Input $$ \textrm{H} $$ is supposed to be decomposed as
 
-  $$ R_z(\alpha) R_y(\theta/2) \sigma_x R_y(-\theta/2) R_z(-(\alpha+\beta)/2) \sigma_x R_z(-\alpha+\beta)/2) = A \sigma_x B \sigma_x C$$
+  $$ \textrm{R}_z(\alpha) \textrm{R}_y(\theta/2) \sigma_x \textrm{R}_y(-\theta/2) \textrm{R}_z(-(\alpha+\beta)/2) \sigma_x \textrm{R}_z(-\alpha+\beta)/2) = \textrm{A} \sigma_x \textrm{B} \sigma_x \textrm{C}$$
 
   ![abc_single]({{ site.baseurl }}/assets/img/abc_single.png)
 
 
-Both decompositions are equivalent to $$ \mathcal{H} upto some global phase factor $\delta$ as
+Both decompositions are equivalent to $$ \textrm{H}$$ upto some global phase factor $\delta$ as
 
 \begin{equation}
 U \left| \psi \right> \left< \psi \right| U^\dagger = e^{i \delta} U \left| \psi \right>  \left< \psi \right| U^\dagger e^{-i \delta}
