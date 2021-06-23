@@ -5,15 +5,15 @@ date:   2021-06-19 11:38:29 -0500
 categories: GSoC QuTiP
 ---
 
-Let's consider decomposing a single qubit gate into a decomposition described by other elementary single qubit gates { $$ \sigma_x, \textrm{R}_y(\theta), \textrm{R}_z(\theta) $$}. The decomposition is equivalent to the input single qubit gate upto some global phase factor.
+Let's consider decomposing a single qubit gate into a decomposition described by other elementary single qubit gates { $$ \sigma_x,\, \textrm{R}_y(\theta),\, \textrm{R}_z(\theta) $$}. The decomposition is equivalent to the input single qubit gate upto some global phase factor.
 
 Any $$ 1$$-qubit unitary $$ U $$ is of the following form :
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/general_single.png" width="50%" height="50%"></div>
 
 
-Single qubit elementary gates are the set of Pauli matrices along with identity { $$ \sigma_x, \sigma_y, \sigma_z, \sigma_0 $$}
-and the set of rotation matrices formed via the matrices in the Pauli set { $$ \textrm{R}_x(\theta), \textrm{R}_y(\theta), \textrm{R}_z(\theta), \textrm{R}_0(\theta) $$}.
+Single qubit elementary gates are the set of Pauli matrices along with identity { $$ \sigma_x, \, \sigma_y, \, \sigma_z, \, \sigma_0 $$}
+and the set of rotation matrices formed via the matrices in the Pauli set { $$ \textrm{R}_x(\theta), \, \textrm{R}_y(\theta), \, \textrm{R}_z(\theta), \, \textrm{R}_0(\theta) $$}.
 
 ![pauli_rotation]({{ site.baseurl }}/assets/img/pauli_rotation.png)
 
@@ -29,11 +29,11 @@ Simplifying the expression for $$ \textrm{R}_z(\alpha) \textrm{R}_y(\theta) \tex
 
 Rewrite the elements of $$ U $$ as complex numbers.
 
-Let $$ a = x + iy$$ and $$ b = p + iq$$. Thus, $$ Re(a) = x, Im(a) = y, Re(b) = p, Im(b) = q $$.
+Let $$ a = x + iy$$ and $$ b = p + iq$$. Thus, $$ Re(a) = x, \, Im(a) = y, \, Re(b) = p, \, Im(b) = q $$.
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/u_real_imaginary.png" width="50%" height="50%"></div>
 
-Equating each element of $$ U $$ $$ \textrm{R}_z(\alpha) \textrm{R}_y(\theta) \textrm{R}_z(\beta) $$ leads to
+Equating each real and complex element of $$ U and $$ $$ \textrm{R}_z(\alpha) \textrm{R}_y(\theta) \textrm{R}_z(\beta) $$ leads to
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/xypq_single.png" width="80%" height="80%"></div>
 
@@ -54,7 +54,7 @@ If $$ \textrm{ZYZ} $$ decomposition has already been calculated then there's an 
 
 ![abc_general]({{ site.baseurl }}/assets/img/abc_general.png)
 
-$$ U = \textrm{R}_z(\alpha) \textrm{R}_y(\theta/2) \sigma_x \textrm{R}_y(-\theta/2) \textrm{R}_z(-(\alpha+\beta)/2) \sigma_x \textrm{R}_z((-\alpha+\beta)/2) = \textrm{A} \sigma_x \textrm{B} \sigma_x \textrm{C}$$
+$$ U = \textrm{R}_z(\alpha) \textrm{R}_y \left(\frac{\theta}{2} \right) \sigma_x \textrm{R}_y \left(\frac{-\theta}{2} \right) \textrm{R}_z \left(\frac{-(\alpha+\beta)}{2} \right) \sigma_x \textrm{R}_z \left(\frac{-\alpha+\beta}{2} \right) = \textrm{A} \sigma_x \textrm{B} \sigma_x \textrm{C}$$
 
 Here, $$\alpha, \theta$$ and $$ \beta $$ were calculated from $$ \textrm{ZYZ} $$ decomposition.
 

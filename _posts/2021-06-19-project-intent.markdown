@@ -139,7 +139,8 @@ Expected circuit diagram output for above:
 
   Input $$ \textrm{H} $$ is supposed to be decomposed as
 
-  $$ \textrm{R}_z(\alpha) \textrm{R}_y(\theta/2) \sigma_x \textrm{R}_y(-\theta/2) \textrm{R}_z(-(\alpha+\beta)/2) \sigma_x \textrm{R}_z(-\alpha+\beta)/2) = \textrm{A} \sigma_x \textrm{B} \sigma_x \textrm{C}$$
+  $$ U = \textrm{R}_z(\alpha) \textrm{R}_y \left(\frac{\theta}{2} \right) \sigma_x \textrm{R}_y \left(\frac{-\theta}{2} \right) \textrm{R}_z \left(\frac{-(\alpha+\beta)}{2} \right) \sigma_x \textrm{R}_z \left(\frac{-\alpha+\beta}{2} \right) = \textrm{A} \sigma_x \textrm{B} \sigma_x \textrm{C}$$
+
 
   ![abc_single]({{ site.baseurl }}/assets/img/abc_single.png)
 
