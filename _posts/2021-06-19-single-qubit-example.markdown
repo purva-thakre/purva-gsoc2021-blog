@@ -33,7 +33,7 @@ Let $$ a = x + iy$$ and $$ b = p + iq$$. Thus, $$ Re(a) = x, \, Im(a) = y, \, Re
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/u_real_imaginary.png" width="50%" height="50%"></div>
 
-Equating each real and complex element of $$ U and $$ $$ \textrm{R}_z(\alpha) \textrm{R}_y(\theta) \textrm{R}_z(\beta) $$ leads to
+Equating each real and complex element of $$ U $$ and $$ \textrm{R}_z(\alpha) \textrm{R}_y(\theta) \textrm{R}_z(\beta) $$ leads to
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/xypq_single.png" width="80%" height="80%"></div>
 
