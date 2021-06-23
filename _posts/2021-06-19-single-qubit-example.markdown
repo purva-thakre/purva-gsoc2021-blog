@@ -9,13 +9,13 @@ Let's consider decomposing a single qubit gate into a decomposition described by
 
 Any $$ 1- $$ qubit unitary $$ U $$ is of the following form :
 
-<div style="text-align: center"><img src="/assets/img/general_single.png" width="50%" height="50%"></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/general_single.png" width="50%" height="50%"></div>
 
 
 Single qubit elementary gates are the set of Pauli matrices along with identity { $$ \sigma_x, \sigma_y, \sigma_z, \sigma_0 $$}
 and the set of rotation matrices formed via the matrices in the Pauli set { $$ R_x(\theta), R_y(\theta), R_z(\theta), R_0(\theta) $$}.
 
-![pauli_rotation](/assets/img/pauli_rotation.png)
+![pauli_rotation]({{ site.baseurl }}/assets/img/pauli_rotation.png)
 
 There exist known decomposition schemes to decompose an arbitrary $$ U $$ into a product of rotation matrices $$ R_y(\theta)$$ and $$ R_y(\theta)$$ or into a product of Pauli $$ X $$ and rotation matrices $$ R_y(\theta)$$ and $$ R_y(\theta)$$.
 
@@ -25,54 +25,54 @@ Suppose we want $$ U = R_z(\alpha) R_y(\theta) R_z(\beta)$$[^1].
 
 Simplifying the expression for $$ R_z(\alpha) R_y(\theta) R_z(\beta) $$ gives :
 
-![zyz_matrix](/assets/img/zyz_matrix.png)
+![zyz_matrix]({{ site.baseurl }}/assets/img/zyz_matrix.png)
 
 Rewrite the elements of $$ U $$ as complex numbers. Let $$ a = x + iy$$ and $$ b = p + iq$$. Thus, $$ Re(a) = x, Im(a) = y, Re(b) = p, Im(b) = q $$.
 
-<div style="text-align: center"><img src="/assets/img/u_real_imaginary.png" width="50%" height="50%"></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/u_real_imaginary.png" width="50%" height="50%"></div>
 
 Comparing the element on each side leads to
 
-![xypq_single](/assets/img/xypq_single.png)
+![xypq_single]({{ site.baseurl }}/assets/img/xypq_single.png)
 
 Using basic trigonometry, the angles are calculated as
 
-<div style="text-align: center"><img src="/assets/img/zyz_angle.png" width="50%" height="50%"></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/zyz_angle.png" width="50%" height="50%"></div>
 
 
 In the end, an arbitrary single qubit $$ U $$ can be implemented in a quantum circuit as
 
-![zyz_circuit](/assets/img/zyz_circuit.png)
+![zyz_circuit]({{ site.baseurl }}/assets/img/zyz_circuit.png)
 
 # ABC decomposition
 Suppose we want $$ U = A \sigma_x B \sigma_x C$$ where $$ ABC = \mathbb{I}$$.
 
 If $$ ZYZ $$ decomposition has already been calculated then there's an easier workaround to describing $$ A, B$$ and $$C$$ in terms of $$ Rz$$ and $$ Ry$$ rotation matrices[^2].
 
-![abc_general](/assets/img/abc_general.png)
+![abc_general]({{ site.baseurl }}/assets/img/abc_general.png)
 
 $$ U = R_z(\alpha) R_y(\theta/2) \sigma_x R_y(-\theta/2) R_z(-(\alpha+\beta)/2) \sigma_x R_z(-\alpha+\beta)/2) = A \sigma_x B \sigma_x C$$
 
 Here, $$\alpha, \theta$$ and $$ \beta $$ were calculated from $$ ZYZ $$ decomposition.
 
-<div style="text-align: center"><img src="/assets/img/ABC_angle.png" width="50%" height="50%"></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/ABC_angle.png" width="50%" height="50%"></div>
 
 ## Example Calculations for Hadamard
 
-![hadamard_real_im](/assets/img/hadamard_real_im.png)
+![hadamard_real_im]({{ site.baseurl }}/assets/img/hadamard_real_im.png)
 
 Using above derived equations :
 
-<div style="text-align: center"><img src="/assets/img/hadamard_angle.png" width="65%" height="65%"></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/hadamard_angle.png" width="65%" height="65%"></div>
 
 **ZYZ Decomposition**
 
-![zyz_single](/assets/img/zyz_single_qubit.png)
+![zyz_single]({{ site.baseurl }}/assets/img/zyz_single_qubit.png)
 
 
 **ABC Decomposition**
 
-![abc_single](/assets/img/abc_single.png)
+![abc_single]({{ site.baseurl }}/assets/img/abc_single.png)
 
 **Note :** For now, there's no way to start a discussion under a blogpost. While I figure out a way to change the default layout of a post, comments/suggestions are welcome [in the repository](https://github.com/purva-thakre/purva-blog/discussions) of this blog.  
 

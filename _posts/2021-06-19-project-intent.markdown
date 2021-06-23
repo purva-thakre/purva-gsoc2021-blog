@@ -16,7 +16,8 @@ to $$ \rho' $$. As long this evolution can be expressed in terms of an operator-
 
 One of the main goals of OSR is to find the operators $$ \{ E_i\} $$ that will act on a $$ n- $$ qubit system i.e. each  $$ E_i $$ is going to also be a $$ n \times n $$ unitary. At the end of this process, we want to implement error correction operator $$ E_i $$ in a quantum circuit with $$ \rho' $$ as the input and $$ \rho $$ as the output.
 
-![error correction](/assets/img/error_correction.png)
+
+![error correction]({{ site.baseurl }}/assets/img/error_correction.png)
 
 There's an issue implementing a quantum circuit [on a quantum device  due to the inability to create a circuit with an arbitrary $$ n \times n $$ matrix](https://quantumcomputing.stackexchange.com/questions/4975/how-do-i-build-a-gate-from-a-matrix-on-qiskit) if the matrix does not describe a known gate. Each of the $$ n \times n $$ matrix in $$ \{ E_i\} $$ has to be described in terms of known quantum gates (or rather by using universal quantum gates[^2]).
 
@@ -68,14 +69,14 @@ To verify the decomposition is equivalent to the input quantum gate except for s
 
 We think this is due to the global phase equation being expressed as $$ \theta = arctan(-y/x) $$ whereas numpy's function calculating the values as $$ \theta = arctan(y/x) $$. The special boundary conditions need to be changed due to the quadrants for $$ arctan(-y/x) $$ being different than those for $$ arctan(y/x) $$ as shown below. Quadrants for $$ arctan(y/x) $$ were taken from [here.](http://scipp.ucsc.edu/~haber/ph116A/arg_11.pdf)
 
-<div style="text-align: center"><img src="/assets/img/arctanyx_quadrants.png"></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/arctanyx_quadrants.png"></div>
 
 
 As new decomposition functions are introduced, it provides a way to compare the performance of the QuTiP functions to those already defined in other packages[^4].  
 
 ### Single Qubit Example
 
-<div style="text-align: center"><img src="/assets/img/hadamard.png"></div>
+<div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/hadamard.png"></div>
 
 Let's consider decomposing a Hadamard gate ($$ \mathcal{H} $$) into a decomposition described by either single qubit rotation gates { $$ R_y(\theta), R_z(\theta) $$} or a combination of single qubit rotation gates { $$ R_y(\theta), R_z(\theta) $$}  and Pauli X gate ($$ \sigma_x $$). The former is called $$ZYZ$$ decomposition whereas the latter is known as $$ABC$$ decomposition.
 
@@ -104,7 +105,7 @@ Expected circuit diagram output for above:
 
   Input $$ \mathcal{H} $$ is supposed to be decomposed as $$ R_z(\alpha) R_y(\theta) R_z(\beta)$$
 
-  ![zyz_single](/assets/img/zyz_single_qubit.png)
+  ![zyz_single]({{ site.baseurl }}/assets/img/zyz_single_qubit.png)
 
 **ABC_decomposition**
 
@@ -112,7 +113,7 @@ Expected circuit diagram output for above:
 
   $$ R_z(\alpha) R_y(\theta/2) \sigma_x R_y(-\theta/2) R_z(-(\alpha+\beta)/2) \sigma_x R_z(-\alpha+\beta)/2) = A \sigma_x B \sigma_x C$$
 
-  ![abc_single](/assets/img/abc_single.png)
+  ![abc_single]({{ site.baseurl }}/assets/img/abc_single.png)
 
 
 Both decompositions are equivalent to $$ \mathcal{H} upto some global phase factor $\delta$ as
