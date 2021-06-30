@@ -69,7 +69,7 @@ if the individual elements of the matrix are to be used to find the rotation
 matrix angles. Here, we multiply above $$ \textrm{H} $$ by complex $$ i $$.
 
 This is mostly because if $$ a = 1$$ then $$ a^* = 1$$ which does not agree with
-the value $$ a^* = -1$$ in the matrix. This, if $$ \textrm{H} $$ is multiplied
+the value $$ a^* = -1$$ in the matrix. Thus, if $$ \textrm{H} $$ is multiplied
 by complex $$ i $$, then $$ a = i$$ then $$ a^* = -i$$.
 
 **$$\textrm{ZYZ}$$ Decomposition**
