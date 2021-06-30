@@ -68,6 +68,10 @@ An additional step is needed to multiply above matrix by some common global phas
 if the individual elements of the matrix are to be used to find the rotation
 matrix angles. Here, we multiply above $$ \textrm{H} $$ by complex $$ i $$.
 
+This is mostly because if $$ a = 1$$ then $$ a^* = 1$$ which does not agree with
+the value $$ a^* = -1$$ in the matrix. This, if $$ \textrm{H} $$ is multiplied
+by complex $$ i $$, then $$ a = i$$ then $$ a^* = -i$$.
+
 **$$\textrm{ZYZ}$$ Decomposition**
 
 The output provided below is off by some global phase after the matrix was multiplied by some global phase before decomposition.
@@ -77,7 +81,7 @@ The output provided below is off by some global phase after the matrix was multi
 
 **$$\textrm{ABC}$$ Decomposition**
 
-The output provided below is off by some global phase after the matrix was multiplied by some global phase before decomposition. 
+The output provided below is off by some global phase after the matrix was multiplied by some global phase before decomposition.
 
 ![abc_single]({{ site.baseurl }}/assets/img/abc_single.png)
 
