@@ -64,16 +64,20 @@ Here, $$\alpha, \, \theta$$ and $$ \beta $$ were calculated from $$ \textrm{ZYZ}
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/hadamard_real_im.png" width="80%" height="80%"></div>
 
-Using above derived equations :
-
-<div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/hadamard_angle.png" width="60%" height="60%"></div>
+An additional step is needed to multiply above matrix by some common global phase
+if the individual elements of the matrix are to be used to find the rotation
+matrix angles. Here, we multiply above $$ \textrm{H} $$ by complex $$ i $$.
 
 **$$\textrm{ZYZ}$$ Decomposition**
+
+The output provided below is off by some global phase after the matrix was multiplied by some global phase before decomposition.
 
 <div style="text-align: center"><img src="{{ site.baseurl }}/assets/img/zyz_single_qubit.png" width="70%" height="70%"></div>
 
 
 **$$\textrm{ABC}$$ Decomposition**
+
+The output provided below is off by some global phase after the matrix was multiplied by some global phase before decomposition. 
 
 ![abc_single]({{ site.baseurl }}/assets/img/abc_single.png)
 
