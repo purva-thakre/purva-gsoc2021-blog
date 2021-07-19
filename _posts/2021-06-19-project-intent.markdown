@@ -36,7 +36,7 @@ A decomposition function will need a $$n$$-qubit unitary gate as input. The deco
 
 - If no option is chosen then the default option to decompose the gate will be to choose a scheme using the least number of gates.
 
-```python
+{% highlight python linenos%}
 def n_qubit_decomposition(Qobj, 'optmization_scheme', 'decomposition_scheme'):
 
   if 'optmization_scheme' in list_of_optimization_schemes:
@@ -58,12 +58,11 @@ def n_qubit_decomposition(Qobj, 'optmization_scheme', 'decomposition_scheme'):
 
     for min_value in all_decomposition_outputs:
       return(decomposition_scheme(Qobj))
-
-```
+{% endhighlight %}
 
 The output from the decomposition function will be provided in the form of a list of objects of `Gate` class. This list could be used to create a circuit diagram with the number of qubits in the circuit determined from the shape of the input gate.
 
-```python
+{% highlight python linenos%}
 
 def find_number_of_qubits(Qobj):
   """ If the input is has n rows and columns, verifies the input is a unitary
@@ -82,7 +81,7 @@ def circuit_diagram(num_of_qubits, list_of_gates_from_decomposition_function):
     output_circuit.add_gate(i)
 
   return(output_circuit.png)
-```
+{% endhighlight %}
 
 To verify the decomposition is equivalent to the input quantum gate except for some global phase factor, a separate module will be introduced.
 
@@ -113,7 +112,7 @@ If it's desired to decompose $$ \textrm{H} $$ into
 
   - Pauli $$\textrm{X}$$ and gates in $$\textrm{ZYZ}$$ decomposition then $$\textrm{ABC}$$ decomposition is used.
 
-```python
+{% highlight python linenos%}
 
 H_gate = Qobj([[1/np.sqrt(2), 1/np.sqrt(2)], [1/np.sqrt(2), -1/np.sqrt(2)]])
 
@@ -125,7 +124,7 @@ def single_qubit_decomposition(H_gate, 'lowest_gate_number', 'ABC_decomposition'
   elif 'ABC_decomposition' in list_of_decomposition_schemes:
     return(ABC_decomposition(H_gate))
 
-```
+{% endhighlight %}
 
 Expected circuit diagram output for above:
 

@@ -29,11 +29,13 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
 theme: minima
+highlighter: rouge
 plugins:
   - jekyll-feed
 
 markdown: kramdown
 kramdown:
+    input: GFM
     math_engine: katex
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -56,4 +58,5 @@ kramdown:
 #   - vendor/ruby/
 permalink: /:categories/:title/
 include:
-  - "_img"
+  - "img"
+  - "css"
