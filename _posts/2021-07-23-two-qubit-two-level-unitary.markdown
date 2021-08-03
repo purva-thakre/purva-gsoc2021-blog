@@ -6,7 +6,7 @@ categories: GSoC QuTiP
 ---
 ## Decomposing to two-level arrays
 Suppose we want to describe a circuit for a general $$ n$$-qubit unitary $$ U $$
-in terms of $$ 2$$-qubit $$ CNOT and single qubit gates.
+in terms of $$ 2$$-qubit CNOT and single qubit gates.
 
  The first step is to decompose the input into a description of two-level unitary
  arrays. Here, a two-level unitary is a $$ n$$-qubit unitary which is similar to
@@ -49,8 +49,8 @@ The rest of the gates in the list and their non-trivial indices are shown below 
 | $$U_1$$  | '00'                | '01'               |
 
 These gates can be decomposed via gray code ordering and decomposing a single qubit
-gate from the values at non-trivial indices (complete details for above gate
-to be added in another blog post).
+gate from the values at non-trivial indices (complete details for further gate
+decomposition to be added soon).
 
 
 **Note :** For now, there's no way to start a discussion under a blogpost. While
