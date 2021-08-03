@@ -39,19 +39,21 @@ $$U_6 = \begin{pmatrix}1 & 0 & 0 & 0 \\\ 0 & 1& 0 & 0 \\\ 0 & 0 & 0.707 & 0.707j
 
 The rest of the gates in the list and their non-trivial indices are shown below :
 
-| Gate     | Control Index Label | Target Index Label |
-| :----:   |    :----:           |       :----:       |
-| $$U_6$$  | '10'                | '11'               |
-| $$U_5$$  | '01'                | '11'               |
-| $$U_4$$  | '01'                | '10'               |
-| $$U_3$$  | '00'                | '11'               |
-| $$U_2$$  | '00'                | '10'               |
-| $$U_1$$  | '00'                | '01'               |
+| Gate     | Control State | Target State |
+| :----:   |    :----:     |       :----: |
+| $$U_6$$  | '10'          | '11'         |
+| $$U_5$$  | '01'          | '11'         |
+| $$U_4$$  | '01'          | '10'         |
+| $$U_3$$  | '00'          | '11'         |
+| $$U_2$$  | '00'          | '10'         |
+| $$U_1$$  | '00'          | '01'         |
 
 These gates can be decomposed via gray code ordering and decomposing a single qubit
-gate from the values at non-trivial indices (complete details for further gate
-decomposition to be added soon).
+gate formed from the values at non-trivial indices (complete details for further gate
+decomposition to be added soon after the function has been defined).
 
+At the moment, there's no way to plot a circuit of two-level unitaries with multiple
+controls and control values. For this reason, the combined output of above gates is not verified in a circuit plot.  The current goal is to be able to decompose a gate only in terms of single-qubit gates and two-qubit CNOT. After this decomposition method has been added, a subclass of `Gate` class will be added for two-level unitary gate objects which will be helpful in creating two-level `Gate` objects.
 
 **Note :** For now, there's no way to start a discussion under a blogpost. While
 I figure out a way to change the default layout of a post, comments/suggestions are welcome [in the repository](https://github.com/purva-thakre/purva-blog/discussions) of this blog.  
