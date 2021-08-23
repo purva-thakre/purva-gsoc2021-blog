@@ -10,23 +10,25 @@ of GSoC 2021 project to add a general quantum gate decomposition in QuTip.
 ## Goal of the Project
 
 Originally proposed plan was to be able to decompose some matrix describing a
-qubit gate into a list of single-qubit and CNOT gates. Since the work is partially done, this post itemizes the issues faced over defining a decomposition scheme.
+qubit gate into a list of single-qubit and CNOT gates. Since **the work is partially done**, this post itemizes the issues faced over defining a decomposition scheme.
 
 The deliverables are :
 
   - A function that is able to decompose a matrix describing a single-qubit
-  gate into a description of known single qubit gates ([merged PR](https://github.com/qutip/qutip-qip/tree/master/src/qutip_qip/decompose))
+  gate into a description of known single qubit gates ([merged PR](https://github.com/qutip/qutip-qip/pull/67))
   - Functions decomposing 2, 3 and other higher number of qubit gate matrices ([draft PR - WIP](https://github.com/qutip/qutip-qip/pull/90))
       - Decomposition into two-level arrays and circuit described by gray code
       ordering ([closed PR - code is used above draft](https://github.com/qutip/qutip-qip/pull/86)).
       - Decomposition of two-qubit gates ([closed PR - code is used above draft](https://github.com/qutip/qutip-qip/pull/82)
-      - [Other contributions](https://github.com/qutip/qutip-qip/pulls?q=is%3Apr+is%3Aclosed+author%3Apurva-thakre) to documentation
+      - Other minor contributions to documentation - [link1](https://github.com/qutip/qutip-qip/pull/54), [link2](https://github.com/qutip/qutip-qip/pull/56),
+      [link3](https://github.com/qutip/qutip-qip/pull/58), [link4](https://github.com/qutip/qutip-qip/pull/59), [link5](https://github.com/qutip/qutip-qip/pull/65).
+
 
 ## Description of decomposition functions
 
 The main decomposition function uses different methods to be able to decompose
 some qubit gate matrix depending on the number of qubits being acted upon. For example, if number of qubits > 3, then ancilla qubits are inserted into the circuit to get the required decomposition. This is mainly because the scheme without ancilla qubits was utilizing a recursion theme but there were some issues
-with how the control and target qubits were calculated recursively.
+with how the control and target qubits were calculated recursively (discussed at the end of this post).
 
 ![choice]({{ site.baseurl }}/assets/img/choices_main_decomposition_fn.png)
 
@@ -105,7 +107,7 @@ two-level into single qubit and CNOT gates.
 
 ![tqlcpx]({{ site.baseurl }}/assets/img/u1_paulix.png)
 
-When a two-level is controlled on first qubit and target ($$U_5$$ array) is last qubit the circuit is as demonstrated for Pauli X, rotation matrices formed from Pauli Z and Y and CNOT gates. If the target is first qubit ($$U_4$$ array) then the control and target qubits can be flipped.
+When a two-level is controlled on first qubit and target is last qubit  ($$U_5$$ array) the circuit is as decomposed of Pauli X, rotation matrices formed from Pauli Z and Y and CNOT gates. If the target is first qubit ($$U_4$$ array) then the control and target qubits can be flipped.
 
 $$U_5 = \begin{pmatrix}1 & 0 & 0 & 0 \\\ 0 & 1& 0 & 0 \\\ 0 & 0 & \textcolor{blue}{\textbf{x}} & \textcolor{blue}{\textbf{x}} \\\ 0 & 0 &  \textcolor{blue}{\textbf{x}} & \textcolor{blue}{\textbf{x}} \end{pmatrix}$$
 
@@ -144,6 +146,7 @@ For example, here's what the example output of $$U_1$$ decomposition looks like 
   # missing first 3 gates here
 
 {% endhighlight %}
+
 #### Future work
 
 Looking at the circuit output above, it can be observed that if we enforce all
@@ -151,16 +154,18 @@ gate control values to be 1, then there might be a scenario when two Pauli X gat
 
 This will be easier to do when two-level gate objects could be inserted in a circuit in QuTiP.
 
-### Three-qubit gate decomposition
+### Three-qubit gate decomposition without Toffoli
 
-This scheme will describe a 3-qubit gate composed of single-qubit and CNOT gates.
+**Future Work: **
+
+This scheme will describe a 3-qubit gate composed of single-qubit and CNOT gates. Note that this is different from the general decomposition scheme where ancilla qubits are used.
 
 ![trq]({{ site.baseurl }}/assets/img/three_qubit_flowchart.png)
 
 Similar to the two-qubit case scenario, if the two-level gate does not describe a gate with either first or last qubit as target then a SWAP gate is inserted after a list of gates describing a decomposition of a two-level gate with last
 qubit as target.
 
-### Decomposition scheme for qubits greater than 3
+### Decomposition scheme for qubits greater than 2
 
 This scheme will decompose some input gate as a combination of single-qubit gates, CNOT and Toffoli. The Toffoli gates could be decomposed further via previously defined decomposition in `resolve_gates`.
 
@@ -173,11 +178,11 @@ $$n-2$$ and the original target is also shifted by this amount.
 
 If we want to introduce ancilla qubits for the decomposition then there's more than one way to do so.
 
-#### Work still to be done for all sub-functions
+## Work in progress for the general decomposition method
 
 As stated previously, the full decomposition output cannot be verified because of the general function's output being different to iterate over. The idea was to describe the output in terms of two-level gate arrays for which a dictionary seemed to be a good output format.
 
-But this ended up turning into a mix of nested dictionaries and lists which made it difficult to keep track of the decomposition keys for some two-level gate array. For larger number of qubits, there were cases when some gates were not appened in the final output.
+But this ended up turning into a mix of nested dictionaries and lists which made it difficult to keep track of the decomposition keys for some two-level gate array. For larger number of qubits, there were cases when some gates were not appended in the final output.
 
 The code of following functions need to be edited to output appended lists:
 
@@ -189,6 +194,10 @@ The code of following functions need to be edited to output appended lists:
  - For $$n>2$$, if the two-level gate object is not describing a gate with first or last qubit as target then SWAP gates are inserted into the gate list along with a two-level gate with last qubit as target.
  - When the gates are decomposed into smaller gates, this output should also be inserted into the full gate list instead of creating a separate dictionary.
  - Only the final output should be a dictionary.
+
+The issues faced were also due to trying to separate the gray code output into two separate lists (labeled as forward gray code gates and backward gray code gates respectively) - last item of first list is the non-trivial two-level gate and the rest are CNOT gates in the gray code scheme. It would be better to change the output to one list for CNOT gates in gray code scheme and one list for the two-level gates that need decomposition function. Currently, because it is one nested list, it is difficult to iterate over.
+
+## Discussion related to creating a recursion scheme
 
 Because of above itemized issues, we had to resort to use ancilla qubits for describing a decomposition for more than 3 qubits as it was problematic to create a recursion function while still trying to keep track of all different keys. The procedure for recursion is shown below :
 
@@ -214,7 +223,6 @@ decomposing the gates in the circuit.
 
 ![r4]({{ site.baseurl }}/assets/img/recursion_final.png)
 
-### Acknowledgments
 
 **Note :** For now, there's no way to start a discussion under a blogpost. While
 I figure out a way to change the default layout of a post, comments/suggestions are welcome [in the repository](https://github.com/purva-thakre/purva-blog/discussions) of this blog.
