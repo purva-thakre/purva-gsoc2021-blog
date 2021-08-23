@@ -115,14 +115,41 @@ $$U_4 = \begin{pmatrix}1 & 0 & 0 & 0 \\\ 0 & \textcolor{blue}{\textbf{x}}& 0 & \
 
 ![tqlcu5]({{ site.baseurl }}/assets/img/u4_two_qubit.png)
 
-As stated previously, the full decomposition output cannot be verified because of the general function's output being different to iterate over (more detailed discussion towards the end of this post).
+As stated previously, the full decomposition output cannot be verified because of the general function's output being different to iterate over (more detailed discussion towards the end of this post) + the final output missing some gates.
 
+For example, here's what the example output of $$U_1$$ decomposition looks like from the main function's output. This output is missing first 3 gates after the two-level array gate decomposition has been added (see comment in code block).
+
+{% highlight python linenos%}
+
+4: [[[Gate(X, targets=[0], controls=None, classical controls=None, control_value=None)],
+   Gate(CNOT, targets=[1], controls=[0], classical controls=None, control_value=None),
+   [Gate(X, targets=[0], controls=None, classical controls=None, control_value=None)],
+   # upto this point, the gates are not added at the end
+   Gate(CNOT, targets=[0], controls=[1], classical controls=None, control_value=None),
+   # two-level array decomposition start
+   [Gate(RZ, targets=[1], controls=None, classical controls=None, control_value=None),
+    Gate(RY, targets=[1], controls=None, classical controls=None, control_value=None),
+    Gate(X, targets=[1], controls=None, classical controls=None, control_value=None),
+    Gate(CNOT, targets=[1], controls=[0], classical controls=None, control_value=None),
+    Gate(X, targets=[1], controls=None, classical controls=None, control_value=None),
+    Gate(RY, targets=[1], controls=None, classical controls=None, control_value=None),
+    Gate(RZ, targets=[1], controls=None, classical controls=None, control_value=None),
+    Gate(X, targets=[1], controls=None, classical controls=None, control_value=None),
+    Gate(CNOT, targets=[1], controls=[0], classical controls=None, control_value=None),
+    Gate(X, targets=[1], controls=None, classical controls=None, control_value=None),
+    Gate(RZ, targets=[1], controls=None, classical controls=None, control_value=None),
+    Gate(PHASEGATE, targets=[0], controls=None, classical controls=None, control_value=None)]],
+    # two-level array decomposition end
+  Gate(CNOT, targets=[0], controls=[1], classical controls=None, control_value=None)]
+  # missing first 3 gates here
+
+{% endhighlight %}
 #### Future work
 
 Looking at the circuit output above, it can be observed that if we enforce all
 gate control values to be 1, then there might be a scenario when two Pauli X gates are acting one after other. If the goal is to reduce the total number of gates in the decomposition then an optimization scheme will have to be introduced. For a 2-qubit case, there's only a couple gates that could be removed using such an optimization scheme but for larger number of qubits, this will be particularly helpful.
 
-We believe this to be easier to do when two-level gate objects could be inserted in a circuit in QuTiP.
+This will be easier to do when two-level gate objects could be inserted in a circuit in QuTiP.
 
 ### Three-qubit gate decomposition
 
