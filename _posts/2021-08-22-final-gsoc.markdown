@@ -156,7 +156,7 @@ This will be easier to do when two-level gate objects could be inserted in a cir
 
 ### Three-qubit gate decomposition without Toffoli
 
-**Future Work: **
+**Future Work:**
 
 This scheme will describe a 3-qubit gate composed of single-qubit and CNOT gates. Note that this is different from the general decomposition scheme where ancilla qubits are used.
 
@@ -171,8 +171,11 @@ This scheme will decompose some input gate as a combination of single-qubit gate
 
 ![gq]({{ site.baseurl }}/assets/img/flowchart_general.png)
 
-The total number of qubits in the circuit are increased after some ancilla qubits are added. If the initial total number of qubits is $$n$$ then the number of possible control qubits are $$n-1$$. Thus, number of ancillas introduced are
-$$n-2$$ and the original target is also shifted by this amount.
+For the case when total number of qubits is 3, there is no need to insert ancilla qubits in the circuit.
+
+![threeq]({{ site.baseurl }}/assets/img/three_qubit_nont.png)
+
+For $$n > 3$$, the total number of qubits in the circuit are increased after some ancilla qubits are added. If the initial total number of qubits is $$n$$ then the number of possible control qubits are $$n-1$$. Thus, number of ancillas introduced are $$n-2$$ and the original target is also shifted by this amount.
 
 ## Future Work
 
