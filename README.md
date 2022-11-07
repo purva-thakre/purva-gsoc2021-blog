@@ -1,4 +1,4 @@
-This repository is used to build my blog at https://purva-thakre.github.io/purva-blog/
+This repository is used to build my blog for Google Summer of Code 2021 at https://purva-thakre.github.io/purva-blog/
 
 Jekyll Minima theme was used : https://github.com/jekyll/minima
 
